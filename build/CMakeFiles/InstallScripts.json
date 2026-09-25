@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/popcorn/project_programmer/programming/myproject-ray-tracing/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

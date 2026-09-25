@@ -1,0 +1,35 @@
+{
+	"modules" : 
+	{
+		"std" : 
+		{
+			"bmi" : "/home/popcorn/project_programmer/programming/myproject-ray-tracing/build/CMakeFiles/@cmake_cxx_std.dir/std.gcm",
+			"is-private" : false
+		},
+		"std.compat" : 
+		{
+			"bmi" : "/home/popcorn/project_programmer/programming/myproject-ray-tracing/build/CMakeFiles/@cmake_cxx_std.dir/std.compat.gcm",
+			"is-private" : false
+		}
+	},
+	"references" : 
+	{
+		"std" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles/@cmake_cxx_std.dir/std.gcm"
+		},
+		"std.compat" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles/@cmake_cxx_std.dir/std.compat.gcm"
+		}
+	},
+	"usages" : 
+	{
+		"std.compat" : 
+		[
+			"std"
+		]
+	}
+}

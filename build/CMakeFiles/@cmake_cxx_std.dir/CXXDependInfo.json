@@ -1,0 +1,56 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "GNU",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : 
+	{
+		"CMakeFiles/@cmake_cxx_std.dir/usr/include/c++/16/bits/std.cc.o" : 
+		{
+			"bmi-only" : false,
+			"compile-features" : 
+			[
+				"cxx_std_20"
+			],
+			"compile-options" : [],
+			"definitions" : [],
+			"destination" : null,
+			"include-directories" : [],
+			"name" : "CXX_MODULES",
+			"relative-directory" : "usr/include/c++/16/bits",
+			"source" : "/usr/include/c++/16/bits/std.cc",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/@cmake_cxx_std.dir/usr/include/c++/16/bits/std.compat.cc.o" : 
+		{
+			"bmi-only" : false,
+			"compile-features" : 
+			[
+				"cxx_std_20"
+			],
+			"compile-options" : [],
+			"definitions" : [],
+			"destination" : null,
+			"include-directories" : [],
+			"name" : "CXX_MODULES",
+			"relative-directory" : "usr/include/c++/16/bits",
+			"source" : "/usr/include/c++/16/bits/std.compat.cc",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		}
+	},
+	"database-info" : null,
+	"dir-cur-bld" : "/home/popcorn/project_programmer/programming/myproject-ray-tracing/build",
+	"dir-cur-src" : "/home/popcorn/project_programmer/programming/myproject-ray-tracing",
+	"dir-top-bld" : "/home/popcorn/project_programmer/programming/myproject-ray-tracing/build",
+	"dir-top-src" : "/home/popcorn/project_programmer/programming/myproject-ray-tracing",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : [],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "/home/popcorn/project_programmer/programming/myproject-ray-tracing/build/CMakeFiles/@cmake_cxx_std.dir",
+	"sources" : {}
+}
