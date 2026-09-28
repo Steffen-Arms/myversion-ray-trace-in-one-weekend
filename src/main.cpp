@@ -1,33 +1,56 @@
-import std;
-import vec3;
+#include "color.h"
+#include "constants.h"
+#include "point3.h"
+#include "ray.h"
+#include "vec3.h"
+#include <filesystem>
+#include <fstream>
+#include <print>
+
+void write_file(const std::filesystem::path& path)
+{
+    std::ofstream out{path, std::ios::out | std::ios::trunc};
+    if (!out)
+    {
+        throw std::runtime_error("cannot open " + path.string());
+    }
+
+    std::println(out, "P3");
+    std::println(out, "{} {}", config::image_width, config::image_height);
+    std::println(out, "{}", config::maxColorNum);
+
+    for (int j{0}; j < config::image_height; ++j)
+    {
+        for (int i{0}; i < config::image_width; ++i)
+        {
+            point3 pixel_center = config::pixel00_loc +
+                                  (i * config::pixel_delta_w) +
+                                  (j * config::pixel_delta_h);
+
+            // note ray_direction is not a unit vector to have less rounding
+            // errors
+            vec3 ray_direction = pixel_center - config::camera_center;
+            ray r{config::camera_center, ray_direction};
+
+            color pixel_color = ray_color(r);
+            std::println(out, "{}", pixel_color);
+        }
+    }
+    // here the "out" object should die and release the resource
+}
 
 int main()
 {
-    // Image configs
-    constexpr double image_width{256};
-    constexpr double image_hight{256};
-    constexpr double maxColorValue{255.999};
-
-    // Render
-    // first print the meta data of the PPM file
-    std::println("P3");
-    std::println("{} {}", image_width, image_hight);
-    std::cout << "255\n";
-
-    // print all possible colors in a file
-    for (int j{0}; j < image_hight; ++j)
+    try
     {
-        for (int i{0}; i < image_width; ++i)
-        {
-            auto r = i / (image_width - 1);
-            auto g = j / (image_hight - 1);
-            auto b = 0.0;
-
-            int ir = static_cast<int>(maxColorValue * r);
-            int ig = static_cast<int>(maxColorValue * g);
-            int ib = static_cast<int>(maxColorValue * b);
-
-            std::println("{} {} {}", ir, ig, ib);
-        }
+        write_file("output.ppm");
+    }
+    catch (const std::exception& e)
+    {
+        std::println(stderr, "Error: {}", e.what());
+    }
+    catch (...)
+    {
+        std::println(stderr, "Unknown error");
     }
 }

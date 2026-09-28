@@ -1,0 +1,50 @@
+# --- Build output (CMake + Ninja) -----------------------------
+# Always build out-of-source, e.g.:  cmake -S . -B build -G Ninja
+build/
+build-*/
+cmake-build-*/          # CLion's default build folders
+out/                    # Visual Studio's default build folder
+
+# In case something was ever configured in-source by accident
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+_deps/
+build.ninja
+.ninja_deps
+.ninja_log
+Makefile
+
+# --- Tooling -------------------------------------------------
+compile_commands.json   # generated; often symlinked into the project root
+CMakeUserPresets.json   # personal presets (CMakePresets.json IS committed)
+.cache/                 # clangd index
+
+# --- IDEs / editors ------------------------------------------
+.vs/
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+*~
+
+# --- OS junk -------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# --- Compiled artifacts (if any end up outside build/) --------
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.lib
+*.so
+*.dll
+*.pdb
+
+# --- Program output ------------------------------------------
+*.ppm

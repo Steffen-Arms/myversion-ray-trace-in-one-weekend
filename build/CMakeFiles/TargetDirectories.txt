@@ -1,4 +1,0 @@
-/home/popcorn/project_programmer/programming/myproject-ray-tracing/build/CMakeFiles/raytracer.dir
-/home/popcorn/project_programmer/programming/myproject-ray-tracing/build/CMakeFiles/edit_cache.dir
-/home/popcorn/project_programmer/programming/myproject-ray-tracing/build/CMakeFiles/rebuild_cache.dir
-/home/popcorn/project_programmer/programming/myproject-ray-tracing/build/CMakeFiles/@cmake_cxx_std.dir

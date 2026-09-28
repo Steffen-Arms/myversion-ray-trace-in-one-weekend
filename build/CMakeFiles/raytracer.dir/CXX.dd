@@ -1,6 +1,0 @@
-ninja_dyndep_version = 1.0
-build CMakeFiles/raytracer.dir/src/main.cpp.o: dyndep | CMakeFiles/@cmake_cxx_std.dir/std.gcm CMakeFiles/raytracer.dir/vec3.gcm
-
-build CMakeFiles/raytracer.dir/src/vec3.cppm.o | CMakeFiles/raytracer.dir/vec3.gcm: dyndep | CMakeFiles/@cmake_cxx_std.dir/std.gcm
-  restat = 1
-
