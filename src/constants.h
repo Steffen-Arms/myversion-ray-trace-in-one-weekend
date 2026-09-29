@@ -1,48 +1,38 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#include "point3.h"
 #include <gsl/util>
+#include <random>
 
 namespace config
 {
+// chapter 6.7 constants
+const double infinity = std::numeric_limits<double>::infinity();
+const double pi = 3.1415926535897932385;
+
+// Utility Functions
+
+inline double degrees_to_radians(double degrees)
+{
+    return degrees * pi / 180.0;
+}
+
+inline double random_double()
+{
+    static std::uniform_real_distribution<double> distribution(0.0, 1.0);
+    static std::mt19937 generator;
+    return distribution(generator);
+}
+
+inline double random_double(double min, double max)
+{
+    // Returns a random real in [min,max).
+    return min + (max - min) * random_double();
+}
+
 // Image configs
-constexpr double test_image_width{256};
-constexpr double test_image_height{256};
-constexpr double maxDoubleColorValue{255.999};
+constexpr double maxDoubleColorValue{256};
 constexpr int maxColorNum{255};
-
-// define image width and aspect ration
-constexpr double aspect_ratio = 16.0 / 9.0;
-constexpr int image_width = 400;
-
-// from the aspect ration and the width we calculate the height
-constexpr int image_height =
-    std::max(gsl::narrow_cast<int>(image_width / aspect_ratio), 1);
-
-// Camera
-//  define viewpoint, note here its ok if the numbers are less than 1
-constexpr double viewport_height{2.0};
-constexpr double viewport_width =
-    viewport_height * (static_cast<double>(image_width) / image_height);
-constexpr double focal_length{1.0};
-point3 camera_center{0, 0, 0};
-
-// Calculate the vectors across the horizontal and down the vertical viewport
-// edges.
-vec3 viewport_vec_width{viewport_width, 0, 0};
-vec3 viewport_vec_height{0, -viewport_height, 0};
-
-// Calculate the horizontal and vertical delta vectors from pixel to pixel
-vec3 pixel_delta_w = viewport_vec_width / image_width;
-vec3 pixel_delta_h = viewport_vec_height / image_height;
-
-// Calculate the location of the upper left pixel.
-point3 viewport_upper_left = camera_center - vec3(0, 0, focal_length) -
-                             viewport_vec_width / 2 - viewport_vec_height / 2;
-point3 pixel00_loc =
-    viewport_upper_left + 0.5 * (pixel_delta_w + pixel_delta_h);
-
 } // namespace config
 
 #endif

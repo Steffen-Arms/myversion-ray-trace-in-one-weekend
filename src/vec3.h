@@ -1,6 +1,7 @@
 #ifndef VEC3_H
 #define VEC3_H
 
+#include "constants.h"
 #include <cmath>
 #include <format>
 #include <ostream>
@@ -50,6 +51,26 @@ class vec3
     // define the length of a vector in euclidian distance
     double length() const { return std::hypot(m_x, m_y, m_z); }
 
+    double length_squared() const
+    {
+        return m_x * m_x + m_y * m_y + m_z * m_z;
+        ;
+    }
+
+    // generate random vectors
+    static vec3 random()
+    {
+        return vec3{config::random_double(), config::random_double(),
+                    config::random_double()};
+    }
+
+    static vec3 random(double min, double max)
+    {
+        return vec3{config::random_double(min, max),
+                    config::random_double(min, max),
+                    config::random_double(min, max)};
+    }
+
     // declare friend binary operator functions
 
     friend vec3 operator+(const vec3& u, const vec3& v)
@@ -84,9 +105,30 @@ class vec3
                     u.m_z * v.m_x - u.m_x * v.m_z,
                     u.m_x * v.m_y - u.m_y * v.m_x};
     }
-
-    friend vec3 unit_vector(const vec3& v) { return v / v.length(); }
 };
+
+vec3 unit_vector(const vec3& v) { return v / v.length(); }
+
+inline vec3 random_unit_vector()
+{
+    while (true)
+    {
+        auto p = vec3::random(-1, 1);
+        auto lensq = p.length_squared();
+        if (1e-160 < lensq && lensq <= 1)
+            return p / sqrt(lensq);
+    }
+}
+
+inline vec3 random_on_hemisphere(const vec3& normal)
+{
+    vec3 on_unit_sphere = random_unit_vector();
+    if (dot(on_unit_sphere, normal) >
+        0.0) // In the same hemisphere as the normal
+        return on_unit_sphere;
+    else
+        return -on_unit_sphere;
+}
 
 // Formatter für std::format / std::print / std::println
 template <> struct std::formatter<vec3> : std::formatter<double>

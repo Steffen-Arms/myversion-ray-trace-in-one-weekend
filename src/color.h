@@ -34,6 +34,15 @@ class color
     double get_z() const { return m_z; }
     void set_z(double z) { m_z = z; }
 
+    color& operator+=(const color c2)
+    {
+        m_x += c2.get_x();
+        m_y += c2.get_y();
+        m_z += c2.get_z();
+
+        return *this;
+    }
+
     friend color operator*(double a, color c1)
     {
         return color{c1.get_x() * a, c1.get_y() * a, c1.get_z() * a};
@@ -46,13 +55,37 @@ class color
         return color{c1.get_x() + c2.get_x(), c1.get_y() + c2.get_y(),
                      c1.get_z() + c2.get_z()};
     }
+
+    friend color operator+(vec3 v, color c)
+    {
+        return color{v.get_x() + c.get_x(), v.get_y() + c.get_y(),
+                     v.get_z() + c.get_z()};
+    }
 };
+
+// helper function
+color pointToColor(point3 p)
+{
+    double length = std::hypot(p.get_x(), p.get_y(), p.get_z());
+    return 0.5 * color{p.get_x() / length + 1, p.get_y() / length + 1,
+                       p.get_z() / length + 1};
+}
+
+inline double linear_to_gamma(double linear_component)
+{
+    if (linear_component > 0)
+        return std::sqrt(linear_component);
+
+    return 0;
+}
 
 // this transform the double value in the range [0,1] value of a color to a
 // int in the range [0,255]
-int to255Int(const double colorNum)
+int transformColorValue(const double colorNum)
 {
-    return gsl::narrow_cast<int>(colorNum * config::maxDoubleColorValue);
+    static const interval intensity(0.000, 0.999);
+    return gsl::narrow_cast<int>(config::maxDoubleColorValue *
+                                 intensity.clamp(linear_to_gamma(colorNum)));
 }
 
 // Formatter für std::format / std::print / std::println
@@ -63,11 +96,14 @@ template <> struct std::formatter<color> : std::formatter<double>
     auto format(const color& v, std::format_context& ctx) const
     {
         auto out = ctx.out(); // Iterator auf die Ausgabe
-        out = std::formatter<double>::format(to255Int(v.get_x()), ctx);
+        out =
+            std::formatter<double>::format(transformColorValue(v.get_x()), ctx);
         out = std::format_to(out, " ");
-        out = std::formatter<double>::format(to255Int(v.get_y()), ctx);
+        out =
+            std::formatter<double>::format(transformColorValue(v.get_y()), ctx);
         out = std::format_to(out, " ");
-        out = std::formatter<double>::format(to255Int(v.get_z()), ctx);
+        out =
+            std::formatter<double>::format(transformColorValue(v.get_z()), ctx);
         return out;
     }
 };

@@ -40,4 +40,21 @@ class ray
     }
 };
 
+double hit_sphere(const point3& center, double radius, const ray& r)
+{
+    vec3 oc = center - r.getOrigin();
+    double a = r.getDirection().length_squared();
+    double h = dot(r.getDirection(), oc);
+    double c = oc.length_squared() - radius * radius;
+    double discriminate = h * h - a * c;
+    if (discriminate < 0)
+    {
+        return -1.0;
+    }
+    else
+    {
+        return (h - std::sqrt(discriminate)) / a;
+    }
+}
+
 #endif
