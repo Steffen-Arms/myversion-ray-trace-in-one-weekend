@@ -43,6 +43,24 @@ class color
         return *this;
     }
 
+    static color random()
+    {
+        return color{config::random_double(), config::random_double(),
+                     config::random_double()};
+    }
+
+    static color random(double min, double max)
+    {
+        return color{config::random_double(min, max),
+                     config::random_double(min, max),
+                     config::random_double(min, max)};
+    }
+
+    friend color operator*(const color& u, const color& v)
+    {
+        return color{u.m_x * v.m_x, u.m_y * v.m_y, u.m_z * v.m_z};
+    }
+
     friend color operator*(double a, color c1)
     {
         return color{c1.get_x() * a, c1.get_y() * a, c1.get_z() * a};

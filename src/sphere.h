@@ -13,8 +13,8 @@ class sphere : public hittable
     shared_ptr<material> m_mat;
 
   public:
-    sphere(const point3& center, double radius)
-        : m_center(center), m_radius(std::fmax(0, radius))
+    sphere(const point3& center, double radius, shared_ptr<material> mat)
+        : m_center(center), m_radius(std::fmax(0, radius)), m_mat{mat}
     {
         // TODO: Initialize the material pointer `mat`.
     }
